@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dap6a01q34yr1"]
+
+[ext_resource type="Script" path="res://my_character.gd" id="1_ti0k8"]
+[ext_resource type="ArrayMesh" uid="uid://cxje0kcxd63rr" path="res://Assets/Models/robot_character.res" id="2_vc1xt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0o6nb"]
+
+[node name="MyCharacter" type="CharacterBody3D"]
+script = ExtResource("1_ti0k8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.139213, 0, 0, 0, 0.139213, 0, 0, 0, 0.139213, 0, -0.606958, 0)
+mesh = ExtResource("2_vc1xt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.569348, 0, 0, 0, 0.569348, 0, 0, 0, 0.569348, 0, -0.252294, 0)
+shape = SubResource("BoxShape3D_0o6nb")
+
+[node name="Camera_Controller" type="Node3D" parent="."]
+top_level = true
+
+[node name="Camera_Target" type="Node3D" parent="Camera_Controller"]
+transform = Transform3D(1, 0, 0, 0, 0.925388, 0.37902, 0, -0.37902, 0.925388, 0, 1.714, 3.56561)
+
+[node name="Camera3D" type="Camera3D" parent="Camera_Controller/Camera_Target"]
+current = true

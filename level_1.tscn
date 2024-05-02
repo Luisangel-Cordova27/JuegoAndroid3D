@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://byi01rxhfnejg"]
+
+[ext_resource type="PackedScene" uid="uid://bay2g7es7gc7w" path="res://block.tscn" id="1_3g75m"]
+[ext_resource type="PackedScene" uid="uid://dap6a01q34yr1" path="res://my_character.tscn" id="2_ve351"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="4_8gx6l"]
+[ext_resource type="Texture2D" uid="uid://buk2v3ha4d0mr" path="res://botonSalto.png" id="5_8uuay"]
+[ext_resource type="PackedScene" uid="uid://dtwvbbouwr7g1" path="res://coin.tscn" id="5_bm82c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a1hev"]
+albedo_color = Color(0.34902, 0.588235, 0.8, 0.898039)
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_fjxju"]
+material = SubResource("StandardMaterial3D_a1hev")
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2c0k"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dgbxd"]
+sky_top_color = Color(0.419608, 0.670588, 0.980392, 1)
+sky_horizon_color = Color(0.729412, 0.721569, 0.741176, 1)
+sky_curve = 0.191184
+ground_curve = 0.0273209
+
+[sub_resource type="Sky" id="Sky_larkl"]
+sky_material = SubResource("ProceduralSkyMaterial_dgbxd")
+
+[sub_resource type="Environment" id="Environment_lpt34"]
+background_mode = 2
+sky = SubResource("Sky_larkl")
+ambient_light_color = Color(0.741176, 0.819608, 0.858824, 1)
+ambient_light_sky_contribution = 0.54
+
+[node name="Level1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00196028)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_fjxju")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_g2c0k")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.999166, -0.035327, 0.0204829, 0.000177187, 0.50534, 0.862921, -0.0408352, -0.862197, 0.504924, 0, 5.44612, 4.26355)
+shadow_enabled = true
+
+[node name="Blocks" type="Node3D" parent="."]
+
+[node name="Block1" parent="Blocks" instance=ExtResource("1_3g75m")]
+transform = Transform3D(1, 0, 0, 0, 0.983299, 0.181995, 0, -0.181995, 0.983299, 0, 5, 0)
+
+[node name="Block2" parent="Blocks" instance=ExtResource("1_3g75m")]
+transform = Transform3D(0.894318, -0.447431, 0, 0.447431, 0.894318, 0, 0, 0, 1, 1, 5.70929, 1.30253)
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("5_bm82c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.31669, 0.784657, 1.27787)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("5_bm82c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.31669, 0.784657, 3.46334)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("5_bm82c")]
+transform = Transform3D(1, 0, 0, 0, 0.856114, -0.516787, 0, 0.516787, 0.856114, 1.40798, 0.784657, 3.46334)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("5_bm82c")]
+transform = Transform3D(1, 0, 0, 0, 0.856114, -0.516787, 0, 0.516787, 0.856114, 2.70129, 0.784657, -2.41388)
+
+[node name="MyCharacter" parent="." instance=ExtResource("2_ve351")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17397, 0.611945, 2.53413)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MyCharacter"]
+environment = SubResource("Environment_lpt34")
+
+[node name="Virtual Joystick" parent="." instance=ExtResource("4_8gx6l")]
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Virtual Joystick"]
+position = Vector2(893, 43)
+scale = Vector2(0.10625, 0.107813)
+texture_normal = ExtResource("5_8uuay")
+action = "ui_accept"
